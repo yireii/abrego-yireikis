@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio#1</title>
+    <style>
+
+        #mensaje {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Laboratorio 1</h1>
+    <h2>YIREIKIS AREGO</h2>
+    
+    <p>Java y JavaScript son lenguajes diferentes. Java se usa para crear aplicaciones grandes que pueden correr en una máquina virtual o en un navegador. JavaScript, en cambio, se usa solo en navegadores para hacer las páginas web más interactivas. Java necesita ser compilado, mientras que JavaScript se lee directamente como texto. Ambos requieren diferentes herramientas para funcionar.</p>
+
+    <p id="mensaje">SORRY POR ENTREGAR TARDE</p>
+
+    <script>
+
+        var num1 = 133;
+        var num2 = 23;
+
+        console.log("Suma:", num1 + num2);
+        console.log("Resta:", num1 - num2);
+        console.log("Multiplicación:", num1 * num2);
+        console.log("División:", num1 / num2);
+
+
+        let nombre = "Elza";
+        let apellidos = "Pato";
+
+        console.log("Concatenación:", nombre + " " + apellidos);
+
+
+        const uno = 23;
+        const dos = "Jelou";
+
+        console.log("Tipo de dato:", typeof uno);
+        console.log("Tipo de dato:", typeof dos);
+
+        const objeto = {
+            number: 11,
+            string: "unjeloyu",
+            booleano: false,
+            objetovacio: {}
+        };
+        console.log("Objeto:", objeto);
+
+        function multiplo3o5(n) {
+            let sum = 0;
+            for (let i = 1; i < n; i++) {
+                if (i % 3 === 0 || i % 5 === 0) {
+                    sum += i;
+                }
+            }
+            return sum;
+        }
+
+        console.log("Respuesta:", multiplo3o5(10));
+
+        const mensaje = document.getElementById("mensaje");
+        const colores = ["red", "blue", "green", "purple", "orange"];
+
+        let colorIndex = 0;
+        setInterval(() => {
+            mensaje.style.color = colores[colorIndex];
+            colorIndex = (colorIndex + 1) % colores.length;
+        }, 1000);
+    </script>
+</body>
+</html>
