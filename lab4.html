@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4</title>
+</head>
+<body>
+    <main>
+        <section id="form">
+            <form>
+                <label for="cadena">Cadena</label>
+                <input name="cadena" type="text" placeholder="Introduzca una cadena">
+            </form>
+        </section>
+        <section class="response">
+            <div id="result"></div>
+        </section>
+    </main>
+
+    <script>
+        const App = (() => {
+            const htmlElements = {
+                form: document.querySelector('form'),
+                result: document.querySelector('#result'),
+            }
+
+            const handlers = {
+                onInputChange(e) {
+                    const reversed = e.target.value.split('').reverse().join('');
+                    htmlElements.result.textContent = reversed;
+                }
+            }
+
+            const bindEvents = () => {
+                htmlElements.form.elements.cadena.addEventListener(
+                    'input',
+                    handlers.onInputChange
+                );
+            }
+
+            return {
+                init() {
+                    bindEvents();
+                }
+            }
+        })();
+
+        App.init();
+    </script>
+</body>
+</html>
