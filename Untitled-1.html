@@ -1,78 +1,84 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio#1</title>
-    <style>
-
-        #mensaje {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+    <title>Lab 4</title>
 </head>
 <body>
-    <h1>Laboratorio 1</h1>
-    <h2>YIREIKIS AREGO</h2>
-    
-    <p>Java y JavaScript son lenguajes diferentes. Java se usa para crear aplicaciones grandes que pueden correr en una máquina virtual o en un navegador. JavaScript, en cambio, se usa solo en navegadores para hacer las páginas web más interactivas. Java necesita ser compilado, mientras que JavaScript se lee directamente como texto. Ambos requieren diferentes herramientas para funcionar.</p>
-
-    <p id="mensaje">SORRY POR ENTREGAR TARDE</p>
+    <main>
+        <section id="form">
+            <form>
+                <label for="cadena">Cadena</label>
+                <input name="cadena" type="text" placeholder= "" required>
+                <select name="color" id="color">
+                    <option value="red">Rojo</option>
+                    <option value="blue">Azul</option>
+                    <option value="orange">Naranja</option>
+                    <option value="pink">Rosado</option>
+                    <option value="rainbow">Arcoíris</option>
+                </select>
+            </form>
+        </section>
+        <section class="response">
+            <div id="result"></div>
+        </section>
+    </main>
 
     <script>
+        const App = (() => {
+            const htmlElements = {
+                form: document.querySelector('form'),
+                result: document.querySelector('#result'),
+                colorSelect: document.querySelector('#color'),
+            }
 
-        var num1 = 133;
-        var num2 = 23;
+            const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
 
-        console.log("Suma:", num1 + num2);
-        console.log("Resta:", num1 - num2);
-        console.log("Multiplicación:", num1 * num2);
-        console.log("División:", num1 / num2);
+            const handlers = {
+                applyRainbow(text) {
+                    return text.split('').map((char, index) => {
+                        const color = colors[index % colors.length];
+                        return `<span style="color: ${color}">${char}</span>`;
+                    }).join('');
+                },
 
+                onInputChange(e) {
+                    const reversed = e.target.value.split('').reverse().join('');
+                    const selectedColor = htmlElements.colorSelect.value;
 
-        let nombre = "Elza";
-        let apellidos = "Pato";
+                    if (selectedColor === 'rainbow') {
+                        htmlElements.result.innerHTML = handlers.applyRainbow(reversed);
+                    } else {
+                        htmlElements.result.innerHTML = `<span style="color: ${selectedColor}">${reversed}</span>`;
+                    }
+                },
 
-        console.log("Concatenación:", nombre + " " + apellidos);
+                onColorChange() {
+                    const reversed = htmlElements.form.elements.cadena.value.split('').reverse().join('');
+                    const selectedColor = htmlElements.colorSelect.value;
 
-
-        const uno = 23;
-        const dos = "Jelou";
-
-        console.log("Tipo de dato:", typeof uno);
-        console.log("Tipo de dato:", typeof dos);
-
-        const objeto = {
-            number: 11,
-            string: "unjeloyu",
-            booleano: false,
-            objetovacio: {}
-        };
-        console.log("Objeto:", objeto);
-
-        function multiplo3o5(n) {
-            let sum = 0;
-            for (let i = 1; i < n; i++) {
-                if (i % 3 === 0 || i % 5 === 0) {
-                    sum += i;
+                    if (selectedColor === 'rainbow') {
+                        htmlElements.result.innerHTML = handlers.applyRainbow(reversed);
+                    } else {
+                        htmlElements.result.innerHTML = `<span style="color: ${selectedColor}">${reversed}</span>`;
+                    }
                 }
             }
-            return sum;
-        }
 
-        console.log("Respuesta:", multiplo3o5(10));
+            const bindEvents = () => {
+                htmlElements.form.elements.cadena.addEventListener('input', handlers.onInputChange);
+                htmlElements.colorSelect.addEventListener('change', handlers.onColorChange);
+            }
 
-        const mensaje = document.getElementById("mensaje");
-        const colores = ["red", "blue", "green", "purple", "orange"];
+            return {
+                init() {
+                    bindEvents();
+                }
+            }
+        })();
 
-        let colorIndex = 0;
-        setInterval(() => {
-            mensaje.style.color = colores[colorIndex];
-            colorIndex = (colorIndex + 1) % colores.length;
-        }, 1000);
+        App.init();
     </script>
 </body>
 </html>
