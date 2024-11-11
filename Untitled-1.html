@@ -1,84 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <a href="https://github.com/yireii/abrego-yireikis" target="_blank" class="corner-image">
+        <img src="432516.webp" alt="Link">
+    </a>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 4</title>
+    <title>PokeApi - Buscador</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
-        <section id="form">
-            <form>
-                <label for="cadena">Cadena</label>
-                <input name="cadena" type="text" placeholder= "" required>
-                <select name="color" id="color">
-                    <option value="red">Rojo</option>
-                    <option value="blue">Azul</option>
-                    <option value="orange">Naranja</option>
-                    <option value="pink">Rosado</option>
-                    <option value="rainbow">Arcoíris</option>
-                </select>
-            </form>
-        </section>
-        <section class="response">
-            <div id="result"></div>
-        </section>
+    <main class="main-container">
+        <div class="logo-container">
+            <img src="pokeapi_256.png" alt="PokeApi" class="logo">
+        </div>
+        <div class="search-container">
+            <div class="search-content">
+                <h2>Buscador de pokemones</h2>
+                <p>Busca desde pokemones hasta las habilidades de los mismos.</p>
+                <div class="search-box">
+                    <div class="search-row">
+                        <div class="search-input-container">
+                            <input type="text" id="searchInput" placeholder="Buscar">
+                        </div>
+                        <div class="search-type-container">
+                            <select id="searchType">
+                                <option value="pokemon">Por pokemon</option>
+                                <option value="ability">Por habilidad</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="buttons-container">
+                        <button id="clearButton" class="button">
+                            <span class="text">Limpiar</span>
+                        </button>
+                        <button id="searchButton" class="button">
+                            <span class="text">Buscar</span>
+                        </button>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <div id="resultContainer" class="result-container hidden">
+        </div>
     </main>
-
-    <script>
-        const App = (() => {
-            const htmlElements = {
-                form: document.querySelector('form'),
-                result: document.querySelector('#result'),
-                colorSelect: document.querySelector('#color'),
-            }
-
-            const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
-
-            const handlers = {
-                applyRainbow(text) {
-                    return text.split('').map((char, index) => {
-                        const color = colors[index % colors.length];
-                        return `<span style="color: ${color}">${char}</span>`;
-                    }).join('');
-                },
-
-                onInputChange(e) {
-                    const reversed = e.target.value.split('').reverse().join('');
-                    const selectedColor = htmlElements.colorSelect.value;
-
-                    if (selectedColor === 'rainbow') {
-                        htmlElements.result.innerHTML = handlers.applyRainbow(reversed);
-                    } else {
-                        htmlElements.result.innerHTML = `<span style="color: ${selectedColor}">${reversed}</span>`;
-                    }
-                },
-
-                onColorChange() {
-                    const reversed = htmlElements.form.elements.cadena.value.split('').reverse().join('');
-                    const selectedColor = htmlElements.colorSelect.value;
-
-                    if (selectedColor === 'rainbow') {
-                        htmlElements.result.innerHTML = handlers.applyRainbow(reversed);
-                    } else {
-                        htmlElements.result.innerHTML = `<span style="color: ${selectedColor}">${reversed}</span>`;
-                    }
-                }
-            }
-
-            const bindEvents = () => {
-                htmlElements.form.elements.cadena.addEventListener('input', handlers.onInputChange);
-                htmlElements.colorSelect.addEventListener('change', handlers.onColorChange);
-            }
-
-            return {
-                init() {
-                    bindEvents();
-                }
-            }
-        })();
-
-        App.init();
-    </script>
+    <script src="api.js"></script>
+    <script src="pric.js"></script>
 </body>
 </html>
