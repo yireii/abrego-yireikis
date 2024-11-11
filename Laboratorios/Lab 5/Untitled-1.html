@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4</title>
+</head>
+<body>
+    <main>
+        <section id="form">
+            <form>
+                <label for="cadena">Cadena</label>
+                <input name="cadena" type="text" placeholder= "" required>
+                <select name="color" id="color">
+                    <option value="red">Rojo</option>
+                    <option value="blue">Azul</option>
+                    <option value="orange">Naranja</option>
+                    <option value="pink">Rosado</option>
+                    <option value="rainbow">Arcoíris</option>
+                </select>
+            </form>
+        </section>
+        <section class="response">
+            <div id="result"></div>
+        </section>
+    </main>
+
+    <script>
+        const App = (() => {
+            const htmlElements = {
+                form: document.querySelector('form'),
+                result: document.querySelector('#result'),
+                colorSelect: document.querySelector('#color'),
+            }
+
+            const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+
+            const handlers = {
+                applyRainbow(text) {
+                    return text.split('').map((char, index) => {
+                        const color = colors[index % colors.length];
+                        return `<span style="color: ${color}">${char}</span>`;
+                    }).join('');
+                },
+
+                onInputChange(e) {
+                    const reversed = e.target.value.split('').reverse().join('');
+                    const selectedColor = htmlElements.colorSelect.value;
+
+                    if (selectedColor === 'rainbow') {
+                        htmlElements.result.innerHTML = handlers.applyRainbow(reversed);
+                    } else {
+                        htmlElements.result.innerHTML = `<span style="color: ${selectedColor}">${reversed}</span>`;
+                    }
+                },
+
+                onColorChange() {
+                    const reversed = htmlElements.form.elements.cadena.value.split('').reverse().join('');
+                    const selectedColor = htmlElements.colorSelect.value;
+
+                    if (selectedColor === 'rainbow') {
+                        htmlElements.result.innerHTML = handlers.applyRainbow(reversed);
+                    } else {
+                        htmlElements.result.innerHTML = `<span style="color: ${selectedColor}">${reversed}</span>`;
+                    }
+                }
+            }
+
+            const bindEvents = () => {
+                htmlElements.form.elements.cadena.addEventListener('input', handlers.onInputChange);
+                htmlElements.colorSelect.addEventListener('change', handlers.onColorChange);
+            }
+
+            return {
+                init() {
+                    bindEvents();
+                }
+            }
+        })();
+
+        App.init();
+    </script>
+</body>
+</html>
