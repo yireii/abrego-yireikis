@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Botones Aleatorios</title>
+  <style>
+    body {
+      background-color: blueviolet;
+      position: relative; 
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 400px;
+      height: 550px; 
+      margin: 0 auto; 
+      border: 15px solid #9294ee;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #02092e;
+      position: relative;
+      text-align: center;
+      color: white;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 20px;
+    }
+
+    .button-container {
+      position: absolute;
+      left: 15%;
+      top: 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: rgb(255, 255, 255);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      color: black;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 16px;
+    }
+    button1 {
+      cursor: pointer;
+      background-color: rgb(248, 252, 17);
+      border: none;
+      padding: 10px 60px;
+      border-radius: 5px;
+      color: #ec155d;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 16px;
+    }
+
+  .text {
+  position: absolute;
+  top: 40%;
+  left: 70%;
+  color: rgba(255, 255, 255, 0.863);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 30px;
+}
+
+    .number-container {
+      margin-top: 20px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .number-box {
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 20px;
+      width: 50px;
+      text-align: center;
+      color: black;
+    }
+
+    .block-blue {
+      background-color: rgb(0, 255, 242);
+    }
+
+    .block-red {
+      background-color: rgb(255, 60, 0);
+    }
+  </style>
+</head>
+<body>
+
+<main>
+    <div class="text">GENERADOR DE NÚMEROS ALEATORIOS</div>
+    <div class="container">
+      <div id="numberCont" class="number-container"></div>
+    </div>
+    <div class="button-container">
+      <button1 id="generateBtn">GENERAR</button1>
+      <button id="BtnAsc">Ascendente</button>
+      <button id="BtnDesc">Descendente</button>
+    </div>
+
+</main>
+
+<script>
+const numberModule = (function () {
+    const generateBtn = document.getElementById('generateBtn');
+    const BtnAsc = document.getElementById('BtnAsc');
+    const BtnDesc = document.getElementById('BtnDesc');
+    const numberCont = document.getElementById('numberCont');
+
+    let numbers = [];
+
+    function generateNum() {
+        return Math.floor(Math.random() * 99) + 1;
+    }
+
+    generateBtn.addEventListener('click', () => {
+        let newNumber = generateNum();
+
+        while (numbers.includes(newNumber)) {
+            newNumber = generateNum();
+        }
+
+        numbers.push(newNumber);
+        numVerif(numbers);
+    });
+
+    function numVerif(numbersArray) {
+        numberCont.innerHTML = '';
+        numbersArray.forEach(num  => {
+            const numberElement = document.createElement('div');
+            numberElement.classList.add('number-box');
+            if (num % 2 ===0 ) {
+                numberElement.classList.add('block-blue');
+            } else {
+                numberElement.classList.add('block-red');
+            }
+            numberElement.textContent = NumDigit(num);
+            numberCont.appendChild(numberElement);
+    
+        });
+    }
+
+
+    function NumDigit(number) {
+        return number < 10 ? `0${number}` : number;
+    }
+
+    function NumbersAsc(numbersArray) {
+        return numbersArray.slice().sort((a, b) => a - b);
+    }
+
+    function NumbersDesc(numbersArray) {
+        return numbersArray.slice().sort((a, b) => b - a);
+    }
+
+    function OrderNum(order) {
+        let NumerosOrdenados;
+        if (order === 'asc') {
+            NumerosOrdenados = NumbersAsc(numbers);
+        } else if (order === 'desc') {
+            NumerosOrdenados = NumbersDesc(numbers);
+        }
+        numVerif(NumerosOrdenados);
+    }
+
+    BtnAsc.addEventListener('click', () => OrderNum('asc'));
+    BtnDesc.addEventListener('click', () => OrderNum('desc'));
+
+})();
+</script>
+
+</body>
+</html>
