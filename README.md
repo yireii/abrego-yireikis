@@ -13,4 +13,4 @@ Me esfuerzo por crear soluciones eficientes, colaborativas y orientadas a los de
 ## Contacto  
 
 - 📧 Correo: yireikis.abrego@utp.ac.pa  
-- 💼 LinkedIn: [Tu Perfil]([https://linkedin.com/in/tuperfi](http://www.linkedin.com/in/yireikis-abrego)l)  
+- 💼 LinkedIn: https://linkedin.com/in/tuperfi](http://www.linkedin.com/in/yireikis-abrego  
